@@ -1,0 +1,29 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #000; /* Fallback for when the video doesn't load */
+}
+
+#webcam {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+
+   /* Apply CSS filters for blurring and chromatic effects */
+  filter: blur(100px) brightness(130%) saturate(50%) contrast(130%);
+  /* Optional: hue-rotation for a more chromatic effect */
+  hue-rotate(200deg);
+}
+
+h1 {
+  color:white;
+  z-index:99;
+  position:fixed;
+}

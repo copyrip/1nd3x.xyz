@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gyroscope Text Color</title>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    #gyroText {
+        font-size: 4em;
+        color: white;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1 id="gyroText">1ND3X</h1>
+</div>
+<script>
+window.addEventListener('deviceorientation', handleOrientation);
+
+function handleOrientation(event) {
+    const beta = event.beta; // Get the beta (tilt front-to-back) angle
+    const gamma = event.gamma; // Get the gamma (tilt left-to-right) angle
+
+    // Map gamma angle to hue range (0 to 360)
+    let hue = (gamma + 90) / 180 * 360;
+
+    // Ensure hue stays within valid range
+    if (hue < 0) {
+        hue = 0;
+    } else if (hue > 360) {
+        hue = 360;
+    }
+
+    // Update text color based on hue
+    const text = document.getElementById('gyroText');
+    text.style.color = `hsl(${hue}, 100%, 50%)`;
+}
+</script>
+</body>
+</html>
+
