@@ -5,4 +5,13 @@
 
 Through libre software, niche inspirations and fun, we explore various way of appropriating this  mediatic subculture.
 
+## links ?
+
+* 1nd3x.site
+* ind3x.site
+* 1nd3x.site
+
+## technos ?
+
+
 
