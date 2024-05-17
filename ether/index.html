@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Display</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <table id="csv-table" border="1">
+        <thead></thead>
+        <tbody></tbody>
+    </table>
+
+  
+    <script>
+$(document).ready(function() {
+    $.ajax({
+        url: 'https://ethercalc.net/1ND3X_database.csv',
+        dataType: 'text',
+        success: function(data) {
+            var rows = data.split("\n");
+            var tableHeader = "<tr>";
+
+            // Process the header
+            var headers = rows[0].split(",");
+            for (var i = 0; i < headers.length; i++) {
+                tableHeader += "<th>" + headers[i] + "</th>";
+            }
+            tableHeader += "</tr>";
+            $("#csv-table thead").append(tableHeader);
+
+            // Process the rest of the rows
+            for (var i = 1; i < rows.length; i++) {
+                var cells = rows[i].split(",");
+                var tableRow = "<tr>";
+                for (var j = 0; j < cells.length; j++) {
+                    tableRow += "<td>" + cells[j] + "</td>";
+                }
+                tableRow += "</tr>";
+                $("#csv-table tbody").append(tableRow);
+            }
+        },
+        error: function() {
+            alert("Failed to fetch the CSV file.");
+        }
+    });
+});
+    </script>
+</body>
+</html>
+
+

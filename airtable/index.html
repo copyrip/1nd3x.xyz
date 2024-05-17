@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airtable Data Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Airtable Data</h1>
+<table id="airtable-data">
+    <thead>
+        <tr>
+            <!-- Table headers will be inserted here dynamically -->
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Table data will be inserted here dynamically -->
+    </tbody>
+</table>
+
+<script>
+    const PERSONAL_ACCESS_TOKEN = 'patT8Dzv8wYwbkeA3.451d8c842d536030eb78163756a24f750801953513fdb47ac52fb2fd63692c49';  // Replace with your Airtable Personal Access Token
+    const BASE_ID = 'appdHnW8k7vVy765N';  // Replace with your Airtable Base ID
+    const TABLE_NAME = 'tblCc2MMGaOEzlAr9';  // Replace with your Airtable Table name
+
+    async function fetchAirtableData() {
+        const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}`;
+        try {
+            const response = await fetch(url, {
+                headers: {
+                    Authorization: `Bearer ${PERSONAL_ACCESS_TOKEN}`
+                }
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const data = await response.json();
+            return data.records;
+        } catch (error) {
+            console.error('Error fetching data from Airtable:', error);
+            return [];
+        }
+    }
+
+    function createTableHeaders(fields) {
+        const thead = document.querySelector('#airtable-data thead tr');
+        fields.forEach(field => {
+            const th = document.createElement('th');
+            th.textContent = field;
+            thead.appendChild(th);
+        });
+    }
+
+    function populateTable(records) {
+        const tbody = document.querySelector('#airtable-data tbody');
+      tbody.innerHTML = '';  // Clear existing headers
+        records.forEach(record => {
+            const tr = document.createElement('tr');
+            Object.values(record.fields).forEach(value => {
+                const td = document.createElement('td');
+                td.textContent = value;
+                tr.appendChild(td);
+            });
+
+
+            tbody.appendChild(tr);
+        });
+    }
+
+    async function initializeTable() {
+        const records = await fetchAirtableData();
+        if (records.length > 0) {
+            const fields = Object.keys(records[0].fields);
+            createTableHeaders(fields);
+            populateTable(records);
+        } else {
+            document.querySelector('#airtable-data').textContent = 'No data available';
+        }
+    }
+
+ document.addEventListener('DOMContentLoaded', () => {
+        initializeTable();  // Initial table load
+        setInterval(initializeTable, 10000);  // Update every 60 seconds
+    });
+</script>
+
+</body>
+</html>
+

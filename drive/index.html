@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display Google Sheets Data</title>
+</head>
+<body>
+    <div id="sheet-data"></div>
+
+    <script>
+        // Replace 'YOUR_API_ENDPOINT' with your sheet2api endpoint URL
+        const apiEndpoint = 'https://sheet2api.com/v1/UlgZhhZRBaB8/1nd3xsite-live-tableur';
+
+        async function fetchSheetData() {
+            try {
+                let response = await fetch(apiEndpoint);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                let data = await response.json();
+                displayData(data);
+            } catch (error) {
+                console.error('There has been a problem with your fetch operation:', error);
+            }
+        }
+
+        function displayData(data) {
+            let html = '<table border="1">';
+            html += '<tr>';
+            // Assuming the first row of the sheet contains column headers
+            for (let heading in data[0]) {
+                html += '<th>' + heading + '</th>';
+            }
+            html += '</tr>';
+            data.forEach(row => {
+                html += '<tr>';
+                for (let cell in row) {
+                    html += '<td>' + row[cell] + '</td>';
+                }
+                html += '</tr>';
+            });
+            html += '</table>';
+            document.getElementById('sheet-data').innerHTML = html;
+        }
+
+        // Fetch and display the data when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', fetchSheetData);
+    </script>
+</body>
+</html>
+
+
