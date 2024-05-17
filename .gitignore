@@ -13,3 +13,6 @@
 *.gif
 *.bmp
 *.svg
+
+# Ignore
+*.secret
