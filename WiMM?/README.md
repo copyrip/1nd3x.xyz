@@ -4,6 +4,13 @@ WiMM est un format d'interview destiné à explorer le rapport qu'entretiennent 
 
 ## before
 
+Explications en story
+Demande mail
+Envoi formulaire
+Publication resultats
+Premiere emission
+
+
 La question cooooo, la question nection, 
 la question connection
 
@@ -23,3 +30,4 @@ la question connection
 * qui vous fournit votre adresse mail ?
 gmail, université, le travail, autre
 
+* 
