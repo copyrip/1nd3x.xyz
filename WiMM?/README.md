@@ -30,4 +30,6 @@ la question connection
 * qui vous fournit votre adresse mail ?
 gmail, université, le travail, autre
 
+* est ce que votre os est à jour ?
+
 * 
